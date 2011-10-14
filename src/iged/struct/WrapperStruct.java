@@ -140,6 +140,6 @@ public class WrapperStruct {
 	}
 	
 	public String toString(){
-				return this.referencia+" | "+ s.toString();
+				return this.referencia;//+" | "+ s.toString();
 	}
 }

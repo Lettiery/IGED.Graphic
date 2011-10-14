@@ -33,14 +33,16 @@ public class Elemento{
 		return this.elementos;
 	}
 
-	public void mover(Point2D pn){
+	public boolean  mover(Point2D pn){
 		double dx = pn.getX() - pb.getX();
 		double dy = pn.getY() - pb.getY();
 		if((dx == 0) && (dy == 0))
-			return;
+			return false;
 
 		this.setPoint(pn);
 		this.mover(dx, dy, 1000);
+		
+		return  true;
 	}
 
 	//Move o objeto usando o deslocamento dx, dy, no tempo t (em milissegundos)

@@ -5,7 +5,9 @@ import iged.struct.*;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -43,10 +45,12 @@ public class GraphicManager {
 			pilha.push(new WrapperStruct(l, Struct.LISTA));
 			break;
 		case Struct.NODE:
+			
 			Node n = new Node(new Point2D.Double(getXNodeSoltos(), yBaseTrabalho));
-			// new Node(new Point2D.Double(getXNodeSoltos(), yBaseTrabalho));
+			
 			pilha.push(new WrapperStruct(n, Struct.NODE));
 			Quadro.getInstance().add(n);
+			this.nodesSoltos ++;
 			break;
 		case Struct.VETOR:
 			//criar contrutor novo contrutor de vetor assim como o de list;
@@ -61,24 +65,6 @@ public class GraphicManager {
 		//feito acho
 		switch (type) {
 		case Struct.LISTA:
-			/*if (pilha.isEmpty()) {
-				Lista l = ((Lista) reg.getStruct());
-
-				int y = yBase;
-				for (WrapperStruct w : structs.values()) {
-					if (w.getType() != Struct.NODE && w.getType() != Struct.VAZIA) {
-						y += w.getStruct().getBond() + 35;
-					}
-				}
-				l.setReferencia(reference);
-				l.desenhar(y);
-				structs.put(reference, reg);
-				contStructs++;
-				reg = null;
-
-			}else {
-			*
-			*///cria referencia vazia
 				WrapperStruct w = new WrapperStruct(null, Struct.LISTA);
 				w.setReferenciaVazia(reference, new Point2D.Double(getXReferenciaSolta(), yBaseTrabalho + 60));
 				pilha.push(w);
@@ -88,13 +74,7 @@ public class GraphicManager {
 			break;
 
 		case Struct.NODE:
-			/*if (pilha.isEmpty()) {
-				WrapperStruct w1 = pilha.pop();
-				w1.setReferencia(reference);
-				structs.put(reference, w1);
-				nodesSoltos++;
-			} else {
-				*///cria referencia vazia
+			
 				
 				WrapperStruct w2 = new WrapperStruct(null, Struct.NODE);
 				w2.setReferenciaVazia(reference, new Point2D.Double(getXReferenciaSolta(), yBaseTrabalho + 60));
@@ -187,6 +167,7 @@ public class GraphicManager {
 	}
 	
 	public void lixeiro(){
+		
 		Quadro.getInstance().limpar();
 		for(WrapperStruct w: this.structs.values()){
 			w.startRepaint();
@@ -203,10 +184,19 @@ public class GraphicManager {
 		}
 		
 		this.nodesSoltos = 0;
-		
+		//Collections.reverse(nodes);
 		for(WrapperStruct no : nodes){
-				no.repintar();
+				/*if(no.getStruct() != null && !no.getStruct().isRepintado()){
+					((Node)no.getStruct()).adjust(new Point2D.Double(getXNodeSoltos(), yBaseTrabalho));
+					no.repintar();
+					nodesSoltos++;
+				}else{
+					no.repintar();
+				}
+				*/
+			no.repintar();
 		}
+
 		
 		Quadro.getInstance().atualizar();
 		crearStack();

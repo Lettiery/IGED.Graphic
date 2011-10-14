@@ -132,19 +132,19 @@ public class Node extends Elemento implements Struct{
     }
 
 	public void mover(final double dx, final double dy, final int t) {
-		
+			
 			super.mover(dx, dy, t);
 
 		for(Referencia r : this.referencias){
 			r.mover(dx, dy, t);
 		}
+		
 	}
 
 	public boolean isAjustado = false;
 	
-    public void adjust(final Point2D p){
+    public synchronized void adjust(final Point2D p){
 
-    	if(!isAjustado)
     		if(isAjustado)
     	           return;
     	       isAjustado = true;	
@@ -154,22 +154,25 @@ public class Node extends Elemento implements Struct{
     		
 			new Thread(){
 				public void run(){
-						n.mover(p);
-	    			try{
-	    				Thread.sleep(500);
-					}catch(Exception e){}
+						if(n.mover(p)){
+							try{
+			    				Thread.sleep(500);
+							}catch(Exception e){}
+						}
+	    			
 
 		    		if(n.prox != null){
 		    			 if(n.prox.isAjustado){
 		    				 n.setNext(n.prox);
 	                           return;
-		    			 }      
+		    			 }
 		    			Point2D pprox = new Point2D.Double((p.getX() + 150), p.getY());
 		        		
-		        			n.prox.mover(pprox);
+		    			n.prox.mover(pprox);
 
 		        		n.setNext(n.prox);
 		        		n.prox.adjust(pprox);
+		        		n.prox.isAjustado = true;
 					}else
 						n.setNext(null);
 				}
@@ -203,6 +206,9 @@ public class Node extends Elemento implements Struct{
 		if(!this.repintado){
 			Quadro.getInstance().add(this);
 			this.repintado = true;
+			if(this.prox != null){
+				this.prox.repintar();
+			}
 		}
 	}
 	
@@ -224,7 +230,7 @@ public class Node extends Elemento implements Struct{
 	public void writeField(Struct s, int field) {
 		switch (field) {
 		case Node.PROX:
-			this.setNext( ((Node)s));
+			this.setNext( ((Node)s) );
 			break;
 		default:
 			break;

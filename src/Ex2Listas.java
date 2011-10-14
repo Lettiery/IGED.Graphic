@@ -1,4 +1,3 @@
-
 import iged.manager.AcaoUsuario;
 import iged.manager.GraphicManager;
 import iged.manager.PaintUI;
@@ -7,8 +6,8 @@ import iged.struct.Lista;
 import iged.struct.Node;
 import iged.struct.Struct;
 
+public class Ex2Listas implements AcaoUsuario {
 
-public class TestGM implements AcaoUsuario {
 
 
 	private Quadro quadro;
@@ -17,19 +16,20 @@ public class TestGM implements AcaoUsuario {
     int count = 0;
 	
 	
-    public TestGM(){
+    public Ex2Listas(){
 		this.quadro = Quadro.getInstance();
+
 		initEditor();
 	}
         
     private void initEditor(){
-    	gm.createReference("n", Struct.NODE);
+    gm.createReference("n", Struct.NODE);
        gm.createStruct(Struct.NODE);
        gm.writeReference();
-
+       gm.lixeiro();
        
        gm.createReference("n2", Struct.NODE);
-
+       gm.lixeiro();
        
        gm.createReference("l", Struct.LISTA);
        gm.createStruct(Struct.LISTA);
@@ -66,60 +66,39 @@ public class TestGM implements AcaoUsuario {
     	gm.createStruct(Struct.NODE);
     	gm.writeReference();
     	
+    	gm.lixeiro();
+    }
+    public void Passo4(){
+    	
     	gm.readReference("n2");
+    	gm.readReference("n");
+    	gm.writeReferenceField(Node.PROX);
+
+    	gm.lixeiro();
+    }
+    public void Passo5(){
+    	gm.readReference("n");
     	gm.createStruct(Struct.NODE);
     	gm.writeReference();
     	
     	gm.lixeiro();
-    }
-    public void Passo4(){
-    	gm.readReference("n");
-    	gm.readReference("n2");
-
-    	gm.writeReferenceField(Node.PROX);
-
     	
-    	
-    	
-    	gm.lixeiro();
-    }
-    public void Passo5(){
-    	gm.readReference("l");
-    	gm.readReferenceField(Lista.INIT);
-    	gm.readReferenceField(Node.PROX);
-    	gm.readReference("n");
-    	gm.writeReferenceField(Node.PROX);
-    	
-    	
-    	gm.readReference("n2");
-    	gm.readReference("l");
-    	gm.readReferenceField(Lista.INIT);
-    	gm.readReferenceField(Node.PROX);
-    	gm.writeReference();
-    	
-    	
-    	gm.readReference("n");
-    	gm.readReference("l");
-    	gm.readReferenceField(Lista.INIT);
-    	gm.writeReference();
-    	
-    	
-    	gm.lixeiro();
     	
     }
     public void Passo6(){
     	
-    	gm.readReference("l");
+    	// Olhar que ta feio
+    	gm.createReference("lista", Struct.LISTA);
+    	gm.createStruct(Struct.LISTA);
+    	gm.writeReference();
+    	
+    	gm.readReference("lista");
     	gm.readReference("n2");
-    	gm.readReferenceField(Node.PROX);
-    	gm.readReferenceField(Node.PROX);
     	gm.writeReferenceField(Lista.INIT);
     	
     	
-    	
-    	
     	gm.lixeiro();
-
+    	
     }
     
     
@@ -174,10 +153,8 @@ public class TestGM implements AcaoUsuario {
 	
 	
 	public static void main(String[] args) {
-		new TestGM().init();
+		new Ex2Listas().init();
 	}
-	
-	
 	
 	
 }

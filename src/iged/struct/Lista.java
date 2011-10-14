@@ -164,30 +164,31 @@ public class Lista extends Elemento implements Struct {
 		
 // redesenhando
 		
-		this.desenhar(yBase);
-		Node n1 = this.ini;
+		if(!this.repintado){
+			this.desenhar(yBase);
+			Node n1 = this.ini;
 
-		
-		if (this.ini !=null && !this.ini.isRepintado()) {
-			//this.ini.repintar();
-			n1 = this.ini;
-			
-			while (n1 != null) {
-
-					n1.repintar();
+				n1 = this.ini;
 				
-				n1 = n1.getProx();
-				if (n1 != null && n1.equals(this.ini)) {
-					break;
+				while (n1 != null) {
+					if(!n1.isRepintado()){
+						n1.repintar();
+					}else{
+						break;
+					}
+					
+					n1 = n1.getProx();
+					if (n1 != null && n1.equals(this.ini)) {
+						break;
+					}
 				}
-			}
+				
+				if(this.ini !=null){
+					this.adjust();
+				}
 			
-			if(this.ini !=null){
-				this.adjust();
-			}
+			this.repintado = true;
 		}
-		
-		this.repintado = true;
 		
 	}
 
