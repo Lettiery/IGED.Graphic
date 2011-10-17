@@ -116,14 +116,14 @@ public class Lista extends Elemento implements Struct {
 	}
 
 	public void setInit(Struct ini) {
-		this.ini = ((Node) ini);
-		if (l != null) {
-			quadro.remove(l);
-			quadro.remove(n);
-			this.desenhar(yBase);
-			l = null;
-			n = null;
+		if(this.ini != null){
+			this.ini.remove(this.ref);
 		}
+		if(n != null){
+			quadro.remove(n);
+		}
+		this.ini = ((Node) ini);
+		this.desenhar(yBase);
 
 	}
 
@@ -206,7 +206,7 @@ public class Lista extends Elemento implements Struct {
 	public void writeField(Struct s, int field) {
 		switch (field) {
 		case Lista.INIT:
-			this.ini = ((Node) s);
+			this.setInit(((Node) s));
 
 		}
 

@@ -2,6 +2,7 @@ import iged.manager.AcaoUsuario;
 import iged.manager.GraphicManager;
 import iged.manager.PaintUI;
 import iged.manager.Quadro;
+import iged.manager.VarInteiroManager;
 import iged.struct.Lista;
 import iged.struct.Node;
 import iged.struct.Struct;
@@ -23,13 +24,34 @@ public class Ex2Listas implements AcaoUsuario {
 	}
         
     private void initEditor(){
+  
+    	
+    	gm.creat_Int("l");
+    	gm.readReferenceInt("l");
+    	gm.setValue("2");
+
+    	gm.creat_Int("cont");
+    	gm.readReferenceInt("cont");
+    	gm.setValue("7");
+
+    	gm.creat_Int("i");
+    	gm.readReferenceInt("i");
+    	gm.setValue("0");
+    	
+    	
+    	
     gm.createReference("n", Struct.NODE);
        gm.createStruct(Struct.NODE);
        gm.writeReference();
        gm.lixeiro();
        
+       gm.readReference("n");
+       gm.writeInfo("-1");
+       
        gm.createReference("n2", Struct.NODE);
        gm.lixeiro();
+       
+       
        
        gm.createReference("l", Struct.LISTA);
        gm.createStruct(Struct.LISTA);
@@ -57,6 +79,9 @@ public class Ex2Listas implements AcaoUsuario {
     	gm.readReferenceField(Lista.INIT);
     	gm.readReference("n2");
     	gm.writeReferenceField(Node.PROX);
+    	
+    	gm.readReference("n2");
+   		gm.writeInfo("5");
     	
     	gm.lixeiro();
     		

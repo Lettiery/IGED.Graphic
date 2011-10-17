@@ -3,9 +3,11 @@ import iged.manager.AcaoUsuario;
 import iged.manager.GraphicManager;
 import iged.manager.PaintUI;
 import iged.manager.Quadro;
+import iged.manager.VarInteiroManager;
 import iged.struct.Lista;
 import iged.struct.Node;
 import iged.struct.Struct;
+import iged.struct.VarInteiro;
 
 
 public class TestGM implements AcaoUsuario {
@@ -50,6 +52,13 @@ public class TestGM implements AcaoUsuario {
     	gm.createStruct(Struct.NODE);
     	gm.writeReference();
     	
+    	gm.readReference("n2");
+    	gm.writeInfo("1");
+    	
+    	gm.readReference("n");
+    	gm.writeInfo("7");
+    	
+    	
     	gm.lixeiro();
     }
     public void Passo2(){
@@ -69,6 +78,25 @@ public class TestGM implements AcaoUsuario {
     	gm.readReference("n2");
     	gm.createStruct(Struct.NODE);
     	gm.writeReference();
+    	
+    	gm.readReference("n2");
+    	gm.writeInfo("4");
+    	
+    	gm.readReference("n");
+    	gm.writeInfo("9");
+    	
+    	
+    	gm.creat_Int("l");
+    	gm.readReferenceInt("l");
+    	gm.setValue("2");
+
+    	gm.creat_Int("cont");
+    	gm.readReferenceInt("cont");
+    	gm.setValue("7");
+
+    	gm.creat_Int("i");
+    	gm.readReferenceInt("i");
+    	gm.setValue("0");
     	
     	gm.lixeiro();
     }
@@ -90,19 +118,19 @@ public class TestGM implements AcaoUsuario {
     	gm.readReference("n");
     	gm.writeReferenceField(Node.PROX);
     	
-    	
     	gm.readReference("n2");
     	gm.readReference("l");
     	gm.readReferenceField(Lista.INIT);
     	gm.readReferenceField(Node.PROX);
     	gm.writeReference();
-    	
+
     	
     	gm.readReference("n");
     	gm.readReference("l");
     	gm.readReferenceField(Lista.INIT);
     	gm.writeReference();
-    	
+    	gm.readReference("l");
+    	gm.writeInfo("4");
     	
     	gm.lixeiro();
     	
@@ -115,8 +143,13 @@ public class TestGM implements AcaoUsuario {
     	gm.readReferenceField(Node.PROX);
     	gm.writeReferenceField(Lista.INIT);
     	
+    	gm.readReference("n2");
+    	gm.readReferenceField(Node.PROX);
+    	gm.readReference("n");
+    	gm.writeReferenceField(Node.PROX);
     	
-    	
+    	gm.readReference("l");
+    	gm.writeInfo("1");
     	
     	gm.lixeiro();
 

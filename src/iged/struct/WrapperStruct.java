@@ -5,7 +5,7 @@ import iged.manager.Quadro;
 
 import java.awt.geom.Point2D;
 
-public class WrapperStruct {
+public class WrapperStruct implements Comparable<WrapperStruct>{
 
 	private Struct s;
 	private Referencia ref;
@@ -97,8 +97,7 @@ public class WrapperStruct {
 	}
 
 	public void setStruct(Struct s) {
-		// deve atualizar o ref , vazer ele apontar para a nova struct e remover da antiga
-		//acho que ta fazendo isso
+		
 		switch (type) {
 		case Struct.LISTA:
 			((Lista)s).setReferencia(this.referencia);
@@ -140,6 +139,36 @@ public class WrapperStruct {
 	}
 	
 	public String toString(){
-				return this.referencia;//+" | "+ s.toString();
+				return this.referencia;
+	}
+
+	@Override
+	public int compareTo(WrapperStruct w) {
+		if(this.getType() == w.getType() && s!= null && w.getStruct() != null){
+			
+			switch (type) {
+
+			case Struct.NODE:
+				if(this.getStruct().getPInit().getX() < w.getStruct().getPInit().getX()){
+					return -1;
+				}else{
+					return 1;
+				}
+			
+			case Struct.LISTA:	
+				if(this.getStruct().getPInit().getY() < w.getStruct().getPInit().getY()){
+					return -1;
+				}else{
+					return 1;
+				}
+				
+				
+			default:
+				break;
+			}
+			
+			
+		}
+		return 0;
 	}
 }

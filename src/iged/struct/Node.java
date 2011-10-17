@@ -204,11 +204,13 @@ public class Node extends Elemento implements Struct{
 	@Override
 	public void repintar() {
 		if(!this.repintado){
+			
 			Quadro.getInstance().add(this);
 			this.repintado = true;
-			if(this.prox != null){
+			if(this.prox != null && !this.prox.isRepintado()){
 				this.prox.repintar();
 			}
+			
 		}
 	}
 	
@@ -264,6 +266,19 @@ public class Node extends Elemento implements Struct{
 	public void startRepaint() {
 		this.repintado = false;
 		this.isAjustado = false;
+		if(this.prox != null ){
+			//this.prox.startRepaint(); , fiz isso para nao dar estouro de pilha
+			Node p = this.prox;
+			while(p != null){
+				p.repintado = false;
+				p.isAjustado = false;
+				
+				p = p.getProx();
+				if(p == null || p.equals(this)){
+					break;
+				}
+			}
+		}
 	}
     
 }

@@ -16,6 +16,8 @@ public class GraphicManager {
 
 	private Map<String, WrapperStruct> structs = new HashMap<String, WrapperStruct>();
 	public Stack<WrapperStruct> pilha = new Stack<WrapperStruct>();
+	public Stack<String> ints = new Stack<String>();
+	private VarInteiroManager vi =  VarInteiroManager.getInstance();
 	
 
 	private int referenciasVazias = 0;
@@ -132,6 +134,22 @@ public class GraphicManager {
 		w.removerReferencia();
 	}
 
+	
+	public void creat_Int(String referencia){
+		vi.createVarInteiro(referencia);
+	}
+	
+	public void readReferenceInt(String referencia){
+		ints.push(referencia);
+	}
+	
+	public void setValue(String value){
+		vi.setValor(ints.pop(), value);
+	}
+	public void ler_Int(String referencia){
+		vi.ler(referencia);
+	}
+	
 	private int getXNodeSoltos() {
 		int x = 0;
 		if (nodesSoltos == 0) {
@@ -167,14 +185,13 @@ public class GraphicManager {
 	}
 	
 	public void lixeiro(){
-		
 		Quadro.getInstance().limpar();
 		for(WrapperStruct w: this.structs.values()){
 			w.startRepaint();
 		}
 		
 		List<WrapperStruct> nodes = new ArrayList<WrapperStruct>();
-		
+
 		for(WrapperStruct w: this.structs.values()){
 			if(w.getType() != Struct.NODE){
 				w.repintar();
@@ -183,24 +200,33 @@ public class GraphicManager {
 			}
 		}
 		
+		
+		
+		
 		this.nodesSoltos = 0;
-		//Collections.reverse(nodes);
+		Collections.sort(nodes);
 		for(WrapperStruct no : nodes){
-				/*if(no.getStruct() != null && !no.getStruct().isRepintado()){
-					((Node)no.getStruct()).adjust(new Point2D.Double(getXNodeSoltos(), yBaseTrabalho));
-					no.repintar();
-					nodesSoltos++;
-				}else{
-					no.repintar();
-				}
-				*/
-			no.repintar();
+			
+			if(no.getStruct() != null && !no.getStruct().isRepintado()){
+				no.repintar();
+				Node n = ((Node)no.getStruct());
+				
+				((Node)no.getStruct()).adjust(new Point2D.Double(getXNodeSoltos(), yBaseTrabalho));
+				nodesSoltos++;
+				
+			}else{
+				no.repintar();
+			}
+			
+			
 		}
-
 		
 		Quadro.getInstance().atualizar();
 		crearStack();
-		//vi.repintar();
+		vi.getInstance().repintar();
 	}
+	
+	
+	
 	
 }
